@@ -1,0 +1,19 @@
+{
+  "DevTeam1Stack": {
+    "NoticePostLambdanoticeGetOneLambdaNameB18DBAEF": "noticeGetOneLambda",
+    "ExportsOutputFnGetAttNoticePostLambdanoticeGetOnenoticeGetOneLambdaAD29353BArn8BB11257": "arn:aws:lambda:ap-northeast-2:150017845340:function:noticeGetOneLambda",
+    "NoticePostLambdanoticePostLambdaName10E04CC4": "noticePostLambda",
+    "ExportsOutputFnGetAttNoticePostLambdanoticePostnoticePostLambdaF4A45037Arn4373C672": "arn:aws:lambda:ap-northeast-2:150017845340:function:noticePostLambda",
+    "NoticePostLambdanoticeDeleteLambdaName90803822": "noticeDeleteLambda",
+    "ExportsOutputFnGetAttNoticePostLambdanoticeDeletenoticeDeleteLambda3C173005Arn69DD4009": "arn:aws:lambda:ap-northeast-2:150017845340:function:noticeDeleteLambda",
+    "NoticePostLambdanoticeGetLambdaName9A68C121": "noticeGetLambda",
+    "ExportsOutputFnGetAttNoticePostLambdanoticeGetnoticeGetLambdaA9FA8BB4ArnBE5104EA": "arn:aws:lambda:ap-northeast-2:150017845340:function:noticeGetLambda"
+  },
+  "MainFrameStack": {
+    "ApiGatewayCDKDemoapiGwrootidFC2B1B0C": "v86n7nt8h6",
+    "S3WebhostDistributionDomainName0AC1AFE9": "d37ofy7ic6vr2s.cloudfront.net",
+    "apiRdcMethodapiGWUrlD9706F47": "https://coct082lz2.execute-api.ap-northeast-2.amazonaws.com/stg/",
+    "S3WebhostS3WebhostBucketName11FA31AA": "cdkdemo-150017845340",
+    "ApiGatewayCDKDemoapiGw3CBE98EA": "coct082lz2"
+  }
+}

@@ -1,0 +1,1182 @@
+Resources:
+  RdsNetworkmycdkvpcEE88EEA3:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: CDKDemo-VPC
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/Resource
+  RdsNetworkmycdkvpcprivatesubnet1Subnet1Subnet8B5D6039:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      CidrBlock: 10.0.0.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: private subnet 1
+        - Key: aws-cdk:subnet-type
+          Value: Isolated
+        - Key: Name
+          Value: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 1Subnet1
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 1Subnet1/Subnet
+  RdsNetworkmycdkvpcprivatesubnet1Subnet1RouteTable927BC426:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+      Tags:
+        - Key: Name
+          Value: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 1Subnet1
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 1Subnet1/RouteTable
+  RdsNetworkmycdkvpcprivatesubnet1Subnet1RouteTableAssociationAC56054F:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet1RouteTable927BC426
+      SubnetId:
+        Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet1Subnet8B5D6039
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 1Subnet1/RouteTableAssociation
+  RdsNetworkmycdkvpcprivatesubnet1Subnet2SubnetF79066C6:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+      AvailabilityZone:
+        Fn::Select:
+          - 1
+          - Fn::GetAZs: ""
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: private subnet 1
+        - Key: aws-cdk:subnet-type
+          Value: Isolated
+        - Key: Name
+          Value: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 1Subnet2
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 1Subnet2/Subnet
+  RdsNetworkmycdkvpcprivatesubnet1Subnet2RouteTable067389CC:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+      Tags:
+        - Key: Name
+          Value: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 1Subnet2
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 1Subnet2/RouteTable
+  RdsNetworkmycdkvpcprivatesubnet1Subnet2RouteTableAssociationC565AD5E:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet2RouteTable067389CC
+      SubnetId:
+        Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet2SubnetF79066C6
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 1Subnet2/RouteTableAssociation
+  RdsNetworkmycdkvpcprivatesubnet2Subnet1Subnet5CACE561:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      CidrBlock: 10.0.2.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: private subnet 2
+        - Key: aws-cdk:subnet-type
+          Value: Isolated
+        - Key: Name
+          Value: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 2Subnet1
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 2Subnet1/Subnet
+  RdsNetworkmycdkvpcprivatesubnet2Subnet1RouteTable57207CCD:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+      Tags:
+        - Key: Name
+          Value: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 2Subnet1
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 2Subnet1/RouteTable
+  RdsNetworkmycdkvpcprivatesubnet2Subnet1RouteTableAssociation4AE4BB8E:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet1RouteTable57207CCD
+      SubnetId:
+        Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet1Subnet5CACE561
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 2Subnet1/RouteTableAssociation
+  RdsNetworkmycdkvpcprivatesubnet2Subnet2Subnet30F7F502:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+      AvailabilityZone:
+        Fn::Select:
+          - 1
+          - Fn::GetAZs: ""
+      CidrBlock: 10.0.3.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: aws-cdk:subnet-name
+          Value: private subnet 2
+        - Key: aws-cdk:subnet-type
+          Value: Isolated
+        - Key: Name
+          Value: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 2Subnet2
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 2Subnet2/Subnet
+  RdsNetworkmycdkvpcprivatesubnet2Subnet2RouteTable609461B2:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+      Tags:
+        - Key: Name
+          Value: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 2Subnet2
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 2Subnet2/RouteTable
+  RdsNetworkmycdkvpcprivatesubnet2Subnet2RouteTableAssociation5D558B15:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet2RouteTable609461B2
+      SubnetId:
+        Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet2Subnet30F7F502
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/my-cdk-vpc/private subnet 2Subnet2/RouteTableAssociation
+  RdsNetworkproxySG2B533ACB:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Proxy SG
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow all outbound traffic by default
+          IpProtocol: "-1"
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/proxySG/Resource
+  RdsNetworkdbSGF2B4B425:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: RDS Proxy to DB SG
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow all outbound traffic by default
+          IpProtocol: "-1"
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/dbSG/Resource
+  RdsNetworkdbSGfromDevteam2FrameStackRdsNetworkdbSG808A3C473306BE2AC2B5:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      Description: allow db connection
+      FromPort: 3306
+      GroupId:
+        Fn::GetAtt:
+          - RdsNetworkdbSGF2B4B425
+          - GroupId
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+          - RdsNetworkdbSGF2B4B425
+          - GroupId
+      ToPort: 3306
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/dbSG/from Devteam2FrameStackRdsNetworkdbSG808A3C47:3306
+  RdsNetworkdbSGfromDevteam2FrameStackRdsNetworkproxySG25591F60330691D01800:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      Description: allow lambda connection
+      FromPort: 3306
+      GroupId:
+        Fn::GetAtt:
+          - RdsNetworkdbSGF2B4B425
+          - GroupId
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+          - RdsNetworkproxySG2B533ACB
+          - GroupId
+      ToPort: 3306
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/dbSG/from Devteam2FrameStackRdsNetworkproxySG25591F60:3306
+  RdsNetworkdbSecret80CA9C13:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      GenerateSecretString:
+        ExcludePunctuation: true
+        GenerateStringKey: password
+        IncludeSpace: false
+        SecretStringTemplate: '{"username":"mysqldb"}'
+      Name: db-credentials
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/dbSecret/Resource
+  RdsNetworkdbSecretAttachment9E8A9904:
+    Type: AWS::SecretsManager::SecretTargetAttachment
+    Properties:
+      SecretId:
+        Ref: RdsNetworkdbSecret80CA9C13
+      TargetId:
+        Ref: RdsNetworkdbinstanceADBB11D6
+      TargetType: AWS::RDS::DBInstance
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/dbSecret/Attachment/Resource
+  RdsNetworkSecretManagerVpcEndpointSecurityGroup2C7C0AC2:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Devteam2FrameStack/RdsNetwork/SecretManagerVpcEndpoint/SecurityGroup
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow all outbound traffic by default
+          IpProtocol: "-1"
+      SecurityGroupIngress:
+        - CidrIp:
+            Fn::GetAtt:
+              - RdsNetworkmycdkvpcEE88EEA3
+              - CidrBlock
+          Description:
+            Fn::Join:
+              - ""
+              - - "from "
+                - Fn::GetAtt:
+                    - RdsNetworkmycdkvpcEE88EEA3
+                    - CidrBlock
+                - :443
+          FromPort: 443
+          IpProtocol: tcp
+          ToPort: 443
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/SecretManagerVpcEndpoint/SecurityGroup/Resource
+  RdsNetworkSecretManagerVpcEndpointED7783C8:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      ServiceName:
+        Fn::Join:
+          - ""
+          - - com.amazonaws.
+            - Ref: AWS::Region
+            - .secretsmanager
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - Fn::GetAtt:
+            - RdsNetworkSecretManagerVpcEndpointSecurityGroup2C7C0AC2
+            - GroupId
+      SubnetIds:
+        - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet1Subnet8B5D6039
+        - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet2SubnetF79066C6
+      VpcEndpointType: Interface
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/SecretManagerVpcEndpoint/Resource
+  RdsNetworkparameterGroup403D1C31:
+    Type: AWS::RDS::DBParameterGroup
+    Properties:
+      Description: Parameter group for mysql8.0
+      Family: mysql8.0
+      Parameters:
+        character_set_client: utf8mb4
+        character_set_server: utf8mb4
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/parameterGroup/Resource
+  RdsNetworkdbinstanceSubnetGroup590F06BE:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet group for db-instance database
+      SubnetIds:
+        - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet1Subnet8B5D6039
+        - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet2SubnetF79066C6
+        - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet1Subnet5CACE561
+        - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet2Subnet30F7F502
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/db-instance/SubnetGroup/Default
+  RdsNetworkdbinstanceSecurityGroup185AA565:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for db-instance database
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow all outbound traffic by default
+          IpProtocol: "-1"
+      VpcId:
+        Ref: RdsNetworkmycdkvpcEE88EEA3
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/db-instance/SecurityGroup/Resource
+  RdsNetworkdbinstanceSecurityGroupfromDevteam2FrameStackRdsNetworkdbSG808A3C47IndirectPort3E417B43:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      IpProtocol: tcp
+      Description: Allow connections to the database Instance from the Proxy
+      FromPort:
+        Fn::GetAtt:
+          - RdsNetworkdbinstanceADBB11D6
+          - Endpoint.Port
+      GroupId:
+        Fn::GetAtt:
+          - RdsNetworkdbinstanceSecurityGroup185AA565
+          - GroupId
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+          - RdsNetworkdbSGF2B4B425
+          - GroupId
+      ToPort:
+        Fn::GetAtt:
+          - RdsNetworkdbinstanceADBB11D6
+          - Endpoint.Port
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/db-instance/SecurityGroup/from Devteam2FrameStackRdsNetworkdbSG808A3C47:{IndirectPort}
+  RdsNetworkdbinstanceADBB11D6:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceClass: db.t3.large
+      AllocatedStorage: "100"
+      AllowMajorVersionUpgrade: true
+      AutoMinorVersionUpgrade: true
+      BackupRetentionPeriod: 0
+      CopyTagsToSnapshot: true
+      DBName: cdkdemo
+      DBParameterGroupName:
+        Ref: RdsNetworkparameterGroup403D1C31
+      DBSubnetGroupName:
+        Ref: RdsNetworkdbinstanceSubnetGroup590F06BE
+      DeleteAutomatedBackups: true
+      DeletionProtection: false
+      Engine: mysql
+      EngineVersion: 8.0.28
+      MasterUsername:
+        Fn::Join:
+          - ""
+          - - "{{resolve:secretsmanager:"
+            - Ref: RdsNetworkdbSecret80CA9C13
+            - :SecretString:username::}}
+      MasterUserPassword:
+        Fn::Join:
+          - ""
+          - - "{{resolve:secretsmanager:"
+            - Ref: RdsNetworkdbSecret80CA9C13
+            - :SecretString:password::}}
+      MaxAllocatedStorage: 105
+      MultiAZ: false
+      PubliclyAccessible: false
+      StorageType: gp2
+      VPCSecurityGroups:
+        - Fn::GetAtt:
+            - RdsNetworkdbinstanceSecurityGroup185AA565
+            - GroupId
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/db-instance/Resource
+  RdsNetworkdbinstancerdsProxyIAMRole9314E5D6:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: rds.amazonaws.com
+        Version: "2012-10-17"
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/db-instance/rdsProxy/IAMRole/Resource
+  RdsNetworkdbinstancerdsProxyIAMRoleDefaultPolicy3C8F811A:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - secretsmanager:DescribeSecret
+              - secretsmanager:GetSecretValue
+            Effect: Allow
+            Resource:
+              Ref: RdsNetworkdbSecret80CA9C13
+        Version: "2012-10-17"
+      PolicyName: RdsNetworkdbinstancerdsProxyIAMRoleDefaultPolicy3C8F811A
+      Roles:
+        - Ref: RdsNetworkdbinstancerdsProxyIAMRole9314E5D6
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/db-instance/rdsProxy/IAMRole/DefaultPolicy/Resource
+  RdsNetworkdbinstancerdsProxy9D0CD30E:
+    Type: AWS::RDS::DBProxy
+    Properties:
+      Auth:
+        - AuthScheme: SECRETS
+          IAMAuth: DISABLED
+          SecretArn:
+            Ref: RdsNetworkdbSecret80CA9C13
+      DBProxyName: rdsProxy
+      EngineFamily: MYSQL
+      RoleArn:
+        Fn::GetAtt:
+          - RdsNetworkdbinstancerdsProxyIAMRole9314E5D6
+          - Arn
+      VpcSubnetIds:
+        - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet1Subnet8B5D6039
+        - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet2SubnetF79066C6
+        - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet1Subnet5CACE561
+        - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet2Subnet30F7F502
+      DebugLogging: true
+      RequireTLS: false
+      VpcSecurityGroupIds:
+        - Fn::GetAtt:
+            - RdsNetworkdbSGF2B4B425
+            - GroupId
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/db-instance/rdsProxy/Resource
+  RdsNetworkdbinstancerdsProxyProxyTargetGroupB5E66B2A:
+    Type: AWS::RDS::DBProxyTargetGroup
+    Properties:
+      DBProxyName:
+        Ref: RdsNetworkdbinstancerdsProxy9D0CD30E
+      TargetGroupName: default
+      ConnectionPoolConfigurationInfo: {}
+      DBInstanceIdentifiers:
+        - Ref: RdsNetworkdbinstanceADBB11D6
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/db-instance/rdsProxy/ProxyTargetGroup
+  RdsNetworkiamRoleForLambdaAA6437D3:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+      RoleName: cdkdemo-lambda-role
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/iamRoleForLambda/Resource
+  RdsNetworkiamRoleForLambdaDefaultPolicyDA9940A1:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - secretsmanager:DescribeSecret
+              - secretsmanager:GetSecretValue
+            Effect: Allow
+            Resource:
+              Ref: RdsNetworkdbSecret80CA9C13
+        Version: "2012-10-17"
+      PolicyName: RdsNetworkiamRoleForLambdaDefaultPolicyDA9940A1
+      Roles:
+        - Ref: RdsNetworkiamRoleForLambdaAA6437D3
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/RdsNetwork/iamRoleForLambda/DefaultPolicy/Resource
+  createRdsTablecreateTableLambdaB9F7FA1C:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: 86bd4f1d4ddd4818dee0a1da35b87e02da59bf2dbb8176e3c2550eeeb354e25e.zip
+      Role:
+        Fn::GetAtt:
+          - RdsNetworkiamRoleForLambdaAA6437D3
+          - Arn
+      Environment:
+        Variables:
+          PROXY_ENDPOINT:
+            Fn::GetAtt:
+              - RdsNetworkdbinstancerdsProxy9D0CD30E
+              - Endpoint
+          RDS_SECRET_NAME: db-credentials
+          AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+          DB_NAME: cdkdemo
+      FunctionName: boardCreateTableLambda
+      Handler: index.handler
+      MemorySize: 256
+      Runtime: nodejs16.x
+      Timeout: 120
+      VpcConfig:
+        SecurityGroupIds:
+          - Fn::GetAtt:
+              - RdsNetworkproxySG2B533ACB
+              - GroupId
+        SubnetIds:
+          - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet1Subnet8B5D6039
+          - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet2SubnetF79066C6
+          - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet1Subnet5CACE561
+          - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet2Subnet30F7F502
+    DependsOn:
+      - RdsNetworkiamRoleForLambdaDefaultPolicyDA9940A1
+      - RdsNetworkiamRoleForLambdaAA6437D3
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/createRdsTable/createTableLambda/Resource
+      aws:asset:path: /Users/jinstar/Desktop/workspace/demogo2/devteam2-frame/cdk.out/asset.86bd4f1d4ddd4818dee0a1da35b87e02da59bf2dbb8176e3c2550eeeb354e25e
+      aws:asset:is-bundled: true
+      aws:asset:property: Code
+  createRdsTableLambdaTriggerCustomResourcePolicyD17B7A8F:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: lambda:InvokeFunction
+            Effect: Allow
+            Resource:
+              Fn::GetAtt:
+                - createRdsTablecreateTableLambdaB9F7FA1C
+                - Arn
+        Version: "2012-10-17"
+      PolicyName: createRdsTableLambdaTriggerCustomResourcePolicyD17B7A8F
+      Roles:
+        - Ref: AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/createRdsTable/LambdaTrigger/CustomResourcePolicy/Resource
+  createRdsTableLambdaTrigger352C91D2:
+    Type: Custom::AWS
+    Properties:
+      ServiceToken:
+        Fn::GetAtt:
+          - AWS679f53fac002430cb0da5b7982bd22872D164C4C
+          - Arn
+      Create:
+        Fn::Join:
+          - ""
+          - - '{"service":"Lambda","action":"invoke","parameters":{"FunctionName":"'
+            - Ref: createRdsTablecreateTableLambdaB9F7FA1C
+            - '","InvocationType":"Event"},"physicalResourceId":{"id":"JobSenderTriggerPhysicalId"}}'
+      InstallLatestAwsSdk: true
+    DependsOn:
+      - createRdsTableLambdaTriggerCustomResourcePolicyD17B7A8F
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/createRdsTable/LambdaTrigger/Resource/Default
+  AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource
+  AWS679f53fac002430cb0da5b7982bd22872D164C4C:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: 6dbd112fe448437b3438da4382c72fccbb7d2ee1543db222620d7447fffebc50.zip
+      Role:
+        Fn::GetAtt:
+          - AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2
+          - Arn
+      Handler: index.handler
+      Runtime: nodejs14.x
+      Timeout: 600
+    DependsOn:
+      - AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/AWS679f53fac002430cb0da5b7982bd2287/Resource
+      aws:asset:path: /Users/jinstar/Desktop/workspace/demogo2/devteam2-frame/node_modules/aws-cdk-lib/custom-resources/lib/aws-custom-resource/runtime
+      aws:asset:is-bundled: false
+      aws:asset:property: Code
+  BoardLambdaRestApiboards8412856C:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::ImportValue: CDKDemo-apiGw-root-id
+      PathPart: boards
+      RestApiId:
+        Fn::ImportValue: CDKDemo-apiGw
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/Resource
+  BoardLambdaRestApiboardsid3768BF5E:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: BoardLambdaRestApiboards8412856C
+      PathPart: "{id}"
+      RestApiId:
+        Fn::ImportValue: CDKDemo-apiGw
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/{id}/Resource
+  BoardLambdaRestApiboardsidDELETEApiPermissionDevteam2FrameStackBoardLambdaRestApi7F22FED5DELETEboardsid8CD9D528:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - BoardLambdaboardDeleteboardDeleteLambdaD05875F0
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Fn::ImportValue: CDKDemo-apiGw
+            - /*/DELETE/boards/*
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/{id}/DELETE/ApiPermission.Devteam2FrameStackBoardLambdaRestApi7F22FED5.DELETE..boards.{id}
+  BoardLambdaRestApiboardsidDELETEApiPermissionTestDevteam2FrameStackBoardLambdaRestApi7F22FED5DELETEboardsid2B0BBC9A:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - BoardLambdaboardDeleteboardDeleteLambdaD05875F0
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Fn::ImportValue: CDKDemo-apiGw
+            - /test-invoke-stage/DELETE/boards/*
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/{id}/DELETE/ApiPermission.Test.Devteam2FrameStackBoardLambdaRestApi7F22FED5.DELETE..boards.{id}
+  BoardLambdaRestApiboardsidDELETED3B4C605:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: DELETE
+      ResourceId:
+        Ref: BoardLambdaRestApiboardsid3768BF5E
+      RestApiId:
+        Fn::ImportValue: CDKDemo-apiGw
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - BoardLambdaboardDeleteboardDeleteLambdaD05875F0
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/{id}/DELETE/Resource
+  BoardLambdaRestApiboardsidOPTIONS10642FE1:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Ref: BoardLambdaRestApiboardsid3768BF5E
+      RestApiId:
+        Fn::ImportValue: CDKDemo-apiGw
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/{id}/OPTIONS/Resource
+  BoardLambdaRestApiboardsGETApiPermissionDevteam2FrameStackBoardLambdaRestApi7F22FED5GETboardsB862025E:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - BoardLambdaboardGetboardGetLambdaF43A33B1
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Fn::ImportValue: CDKDemo-apiGw
+            - /*/GET/boards
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/GET/ApiPermission.Devteam2FrameStackBoardLambdaRestApi7F22FED5.GET..boards
+  BoardLambdaRestApiboardsGETApiPermissionTestDevteam2FrameStackBoardLambdaRestApi7F22FED5GETboards16ECC4DF:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - BoardLambdaboardGetboardGetLambdaF43A33B1
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Fn::ImportValue: CDKDemo-apiGw
+            - /test-invoke-stage/GET/boards
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/GET/ApiPermission.Test.Devteam2FrameStackBoardLambdaRestApi7F22FED5.GET..boards
+  BoardLambdaRestApiboardsGET79C1424D:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      ResourceId:
+        Ref: BoardLambdaRestApiboards8412856C
+      RestApiId:
+        Fn::ImportValue: CDKDemo-apiGw
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - BoardLambdaboardGetboardGetLambdaF43A33B1
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/GET/Resource
+  BoardLambdaRestApiboardsPOSTApiPermissionDevteam2FrameStackBoardLambdaRestApi7F22FED5POSTboards4405A9EC:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - BoardLambdaboardPostboardPostLambdaA8F7F559
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Fn::ImportValue: CDKDemo-apiGw
+            - /*/POST/boards
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/POST/ApiPermission.Devteam2FrameStackBoardLambdaRestApi7F22FED5.POST..boards
+  BoardLambdaRestApiboardsPOSTApiPermissionTestDevteam2FrameStackBoardLambdaRestApi7F22FED5POSTboards694F1489:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - BoardLambdaboardPostboardPostLambdaA8F7F559
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Fn::ImportValue: CDKDemo-apiGw
+            - /test-invoke-stage/POST/boards
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/POST/ApiPermission.Test.Devteam2FrameStackBoardLambdaRestApi7F22FED5.POST..boards
+  BoardLambdaRestApiboardsPOSTE0F629F2:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: POST
+      ResourceId:
+        Ref: BoardLambdaRestApiboards8412856C
+      RestApiId:
+        Fn::ImportValue: CDKDemo-apiGw
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - BoardLambdaboardPostboardPostLambdaA8F7F559
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/POST/Resource
+  BoardLambdaRestApiboardsOPTIONS3FFE7832:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Ref: BoardLambdaRestApiboards8412856C
+      RestApiId:
+        Fn::ImportValue: CDKDemo-apiGw
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/RestApi/Default/boards/OPTIONS/Resource
+  BoardLambdaboardGetboardGetLambdaF43A33B1:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: a0904d90591bb6537359ab3fd5045a6a147baaecb224bd77445f97399b7e6231.zip
+      Role:
+        Fn::GetAtt:
+          - RdsNetworkiamRoleForLambdaAA6437D3
+          - Arn
+      Environment:
+        Variables:
+          PROXY_ENDPOINT:
+            Fn::GetAtt:
+              - RdsNetworkdbinstancerdsProxy9D0CD30E
+              - Endpoint
+          RDS_SECRET_NAME: db-credentials
+          AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+          DB_NAME: cdkdemo
+      FunctionName: boardGetLambda
+      Handler: index.handler
+      MemorySize: 256
+      Runtime: nodejs16.x
+      Timeout: 10
+      VpcConfig:
+        SecurityGroupIds:
+          - Fn::GetAtt:
+              - RdsNetworkproxySG2B533ACB
+              - GroupId
+        SubnetIds:
+          - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet1Subnet8B5D6039
+          - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet2SubnetF79066C6
+          - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet1Subnet5CACE561
+          - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet2Subnet30F7F502
+    DependsOn:
+      - RdsNetworkiamRoleForLambdaDefaultPolicyDA9940A1
+      - RdsNetworkiamRoleForLambdaAA6437D3
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/boardGet/boardGetLambda/Resource
+      aws:asset:path: /Users/jinstar/Desktop/workspace/demogo2/devteam2-frame/cdk.out/asset.a0904d90591bb6537359ab3fd5045a6a147baaecb224bd77445f97399b7e6231
+      aws:asset:is-bundled: true
+      aws:asset:property: Code
+  BoardLambdaboardGetboardGetLambdaInvokeFcyXBRX02EWa52GlFECQiCzDt0fdRUDi4mo4foC5aUD76D81F9:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - BoardLambdaboardGetboardGetLambdaF43A33B1
+          - Arn
+      Principal: apigateway.amazonaws.com
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/boardGet/boardGetLambda/InvokeFcyXBRX02EWa52GlF+ECQiCzDt0fdRUDi4mo4foC5aU=
+  BoardLambdaboardPostboardPostLambdaA8F7F559:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: 1af9f64bce6f92def2539afca63c9584465e8d7c0e52b923f41293e3c957cae6.zip
+      Role:
+        Fn::GetAtt:
+          - RdsNetworkiamRoleForLambdaAA6437D3
+          - Arn
+      Environment:
+        Variables:
+          PROXY_ENDPOINT:
+            Fn::GetAtt:
+              - RdsNetworkdbinstancerdsProxy9D0CD30E
+              - Endpoint
+          RDS_SECRET_NAME: db-credentials
+          AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+          DB_NAME: cdkdemo
+      FunctionName: boardPostLambda
+      Handler: index.handler
+      MemorySize: 256
+      Runtime: nodejs16.x
+      Timeout: 20
+      VpcConfig:
+        SecurityGroupIds:
+          - Fn::GetAtt:
+              - RdsNetworkproxySG2B533ACB
+              - GroupId
+        SubnetIds:
+          - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet1Subnet8B5D6039
+          - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet2SubnetF79066C6
+          - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet1Subnet5CACE561
+          - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet2Subnet30F7F502
+    DependsOn:
+      - RdsNetworkiamRoleForLambdaDefaultPolicyDA9940A1
+      - RdsNetworkiamRoleForLambdaAA6437D3
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/boardPost/boardPostLambda/Resource
+      aws:asset:path: /Users/jinstar/Desktop/workspace/demogo2/devteam2-frame/cdk.out/asset.1af9f64bce6f92def2539afca63c9584465e8d7c0e52b923f41293e3c957cae6
+      aws:asset:is-bundled: true
+      aws:asset:property: Code
+  BoardLambdaboardPostboardPostLambdaInvokeFcyXBRX02EWa52GlFECQiCzDt0fdRUDi4mo4foC5aU8D5DF6D7:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - BoardLambdaboardPostboardPostLambdaA8F7F559
+          - Arn
+      Principal: apigateway.amazonaws.com
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/boardPost/boardPostLambda/InvokeFcyXBRX02EWa52GlF+ECQiCzDt0fdRUDi4mo4foC5aU=
+  BoardLambdaboardDeleteboardDeleteLambdaD05875F0:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: 70fd59205970e4a3f3080303893ae718cbc3a760636bc2348b3f6d9310ed2527.zip
+      Role:
+        Fn::GetAtt:
+          - RdsNetworkiamRoleForLambdaAA6437D3
+          - Arn
+      Environment:
+        Variables:
+          PROXY_ENDPOINT:
+            Fn::GetAtt:
+              - RdsNetworkdbinstancerdsProxy9D0CD30E
+              - Endpoint
+          RDS_SECRET_NAME: db-credentials
+          AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+          DB_NAME: cdkdemo
+      FunctionName: boardDeleteLambda
+      Handler: index.handler
+      MemorySize: 256
+      Runtime: nodejs16.x
+      Timeout: 20
+      VpcConfig:
+        SecurityGroupIds:
+          - Fn::GetAtt:
+              - RdsNetworkproxySG2B533ACB
+              - GroupId
+        SubnetIds:
+          - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet1Subnet8B5D6039
+          - Ref: RdsNetworkmycdkvpcprivatesubnet1Subnet2SubnetF79066C6
+          - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet1Subnet5CACE561
+          - Ref: RdsNetworkmycdkvpcprivatesubnet2Subnet2Subnet30F7F502
+    DependsOn:
+      - RdsNetworkiamRoleForLambdaDefaultPolicyDA9940A1
+      - RdsNetworkiamRoleForLambdaAA6437D3
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/boardDelete/boardDeleteLambda/Resource
+      aws:asset:path: /Users/jinstar/Desktop/workspace/demogo2/devteam2-frame/cdk.out/asset.70fd59205970e4a3f3080303893ae718cbc3a760636bc2348b3f6d9310ed2527
+      aws:asset:is-bundled: true
+      aws:asset:property: Code
+  BoardLambdaboardDeleteboardDeleteLambdaInvokeFcyXBRX02EWa52GlFECQiCzDt0fdRUDi4mo4foC5aU1630FE1E:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - BoardLambdaboardDeleteboardDeleteLambdaD05875F0
+          - Arn
+      Principal: apigateway.amazonaws.com
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/BoardLambda/boardDelete/boardDeleteLambda/InvokeFcyXBRX02EWa52GlF+ECQiCzDt0fdRUDi4mo4foC5aU=
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAA/31SwW7bMAz9lt4VbU2B3pN0G3LYaiRFrwEts64SWzJEqllg+N9Hy06cZkABA3x84qMeac31w1zf38GRZqY4zCqb63bLYA5KqF2LZq7b18ao1Zt7zVYqC/YDGLcxd8g9OaGNj4wvkFc48RO3IPLGAlvv1BZNDJZPv4KPTSr+kli7MiCRWjvG8AYGxc8PVzTeOh59ndNOEZqATDU4KDHILCkfe/ZoCC8QSuQFy6TvNbqrgtuTToWCdJtBgBrFwMXj0/KGewKGHAjXjhicQTXs4ErwH3EpPWuz4P+exu43cDCWxJ2yUOt244ddp5j5yppUP6BOVVDnBeycL3BP+k8KP6Mz6R/Qww6IZFN60QfJ9TKaA/JSXIxS3Uq3i2JrXVkh+4m5gP5SDLUlkqxT0NhSHskRTuIRiReNTV0F+xgMfkrSAGf8G/ndFz01oK77VPccuYmskmN5pKU4UiYS+3oXxjKZ50irxE3Km/TqQsEr7wrLyXi/Kr2nbx/3j1q+73d7snYWomNbo94M8R+1PTwkMgMAAA==
+    Metadata:
+      aws:cdk:path: Devteam2FrameStack/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Outputs:
+  RdsNetworkProxyEndpoint4FC7E6BD:
+    Value:
+      Fn::GetAtt:
+        - RdsNetworkdbinstancerdsProxy9D0CD30E
+        - Endpoint
+    Export:
+      Name: ProxyEndpoint
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - af-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+Parameters:
+  BootstrapVersion:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cdk-bootstrap/hnb659fds/version
+    Description: Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]
+Rules:
+  CheckBootstrapVersion:
+    Assertions:
+      - Assert:
+          Fn::Not:
+            - Fn::Contains:
+                - - "1"
+                  - "2"
+                  - "3"
+                  - "4"
+                  - "5"
+                - Ref: BootstrapVersion
+        AssertDescription: CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.
+
