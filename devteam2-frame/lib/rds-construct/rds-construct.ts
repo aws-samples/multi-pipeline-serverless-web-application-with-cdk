@@ -85,12 +85,9 @@ export class RdsConstruct extends Construct {
               version: rds.MysqlEngineVersion.VER_8_0_28,
             }),
             instanceType: ec2.InstanceType.of(
-            //   ec2.InstanceClass.T3 ,
-            //   ec2.InstanceSize.LARGE,
               ec2.InstanceClass.T3,
               ec2.InstanceSize.LARGE,
             ),
-            // credentials: rds.Credentials.fromGeneratedSecret('mysqldb'),
             credentials: rds.Credentials.fromSecret(this.dbCredentialSecret),
             multiAz: false,
             allocatedStorage: 100,

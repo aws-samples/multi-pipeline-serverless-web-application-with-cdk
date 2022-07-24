@@ -50,9 +50,6 @@ const params = {
 };
 
 exports.handler = async (event, context) => {
-    // var item = typeof event == 'object' ? event : JSON.parse(event.body);
-    // const item = typeof event.body == 'object' ? event.body : JSON.parse(event.body);
-    
     try {
         await ddb.batchWrite(params).promise();
         return { statusCode: 201, body: JSON.stringify('nice'), headers };

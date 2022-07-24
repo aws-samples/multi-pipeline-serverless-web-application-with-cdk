@@ -41,21 +41,29 @@ export class ApiRscMethod extends Construct {
         });
 
         // api gateway deploy
-        const currntStage = 'stg';
-        const deployment = new apiGateway.Deployment(this, 'Deployment', {
-            api:props.apiGW,
-            retainDeployments: true,
-        });
-        const stage = new apiGateway.Stage(this, `${currntStage}_stage`, {
-            deployment,
-            stageName: `${currntStage}`,
-        });
-        props.apiGW.deploymentStage = stage;
+        // const currntStage = 'stg';
+        // const deployment = new apiGateway.Deployment(this, 'Deployment', {
+        //     api:props.apiGW,
+        //     retainDeployments: true,
+        // });
+        // const stage = new apiGateway.Stage(this, `${currntStage}_stage`, {
+        //     deployment,
+        //     stageName: `${currntStage}`,
+        // });
+        // props.apiGW.deploymentStage = stage;
 
         // api gateway output
+
         new cdk.CfnOutput(this, 'apiGWUrl', {
             value: props.apiGW.url,
             exportName: 'ApiGWUrl',
         });
+
+        new cdk.CfnOutput(this, 'deploymentId', {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            value: props.apiGW.latestDeployment?.deploymentId,
+            exportName: 'deploymentId',
+        }); 
     }
 }

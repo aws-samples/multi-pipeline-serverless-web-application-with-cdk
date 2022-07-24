@@ -21,7 +21,6 @@ exports.handler = async (event, context) => {
                 "id": itemId,
                 "title": titleParam.title,
             }
-            // id: itemId
         };
         
         try {

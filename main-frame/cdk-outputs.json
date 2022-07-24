@@ -10,10 +10,13 @@
     "ExportsOutputFnGetAttNoticePostLambdanoticeGetnoticeGetLambdaA9FA8BB4ArnBE5104EA": "arn:aws:lambda:ap-northeast-2:150017845340:function:noticeGetLambda"
   },
   "MainFrameStack": {
-    "ApiGatewayCDKDemoapiGwrootidFC2B1B0C": "v86n7nt8h6",
-    "S3WebhostDistributionDomainName0AC1AFE9": "d37ofy7ic6vr2s.cloudfront.net",
-    "apiRdcMethodapiGWUrlD9706F47": "https://coct082lz2.execute-api.ap-northeast-2.amazonaws.com/stg/",
+    "ApiGatewayCDKDemoapiGwrootidFC2B1B0C": "kjc696yrma",
+    "S3WebhostS3BucketArnF015C60D": "arn:aws:s3:::cdkdemo-150017845340",
+    "S3WebhostDistributionDomainName0AC1AFE9": "d20cy5pevpl5g7.cloudfront.net",
+    "apiRdcMethodapiGWUrlD9706F47": "https://pz3zzihzcj.execute-api.ap-northeast-2.amazonaws.com/prod/",
+    "ApiGatewayapiGatewayEndpoint71C8EF5C": "https://pz3zzihzcj.execute-api.ap-northeast-2.amazonaws.com/prod/",
+    "apiRdcMethoddeploymentId3B39F0D7": "96nw9v",
     "S3WebhostS3WebhostBucketName11FA31AA": "cdkdemo-150017845340",
-    "ApiGatewayCDKDemoapiGw3CBE98EA": "coct082lz2"
+    "ApiGatewayCDKDemoapiGw3CBE98EA": "pz3zzihzcj"
   }
 }

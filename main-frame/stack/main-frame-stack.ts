@@ -7,6 +7,7 @@ import { S3WebhostConstruct } from '../lib/infra-constructs/s3-webhost-construct
 import * as cdk from 'aws-cdk-lib';
 import { CONSTANTS } from '../config/shared';
 import { WriteWebhostEnvConstruct } from '../lib/app-construct/writeWebhostEnv-construct';
+import { LambdaLocalTest } from '../lib/app-construct/lambdaLocalTest';
 
 export class MainFrameStack extends Stack {
   public readonly apiGwConstruct: ApiGWConstruct;
@@ -38,5 +39,7 @@ export class MainFrameStack extends Stack {
       bucket: s3Webhost.cDKDemoBucket,
       apiGW: this.apiGwConstruct.apiGW,
     });
+
+    new LambdaLocalTest(this, 'lambdaLocalTest', {});
   }
 }

@@ -11,7 +11,7 @@ export interface insertDataProps {
 }
 
 // insert 3 datas to dynamoDB after Table created
-export class InsertDataToDdbConstruct extends Construct {
+export class InsertDatasToDdbConstruct extends Construct {
     constructor(scope: Construct, id: string, props: insertDataProps) {
         super(scope, id);
 

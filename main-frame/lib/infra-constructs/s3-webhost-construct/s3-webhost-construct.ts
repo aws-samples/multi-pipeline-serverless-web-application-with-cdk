@@ -3,7 +3,6 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
-// import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import { CfnCloudFrontOriginAccessIdentity, PriceClass, ViewerProtocolPolicy } from "aws-cdk-lib/aws-cloudfront";
 
 export interface S3WebhostConstructProps {
@@ -87,10 +86,14 @@ export class S3WebhostConstruct extends Construct {
         new cdk.CfnOutput(this, 'S3WebhostBucketName', {
             value: props.buckName,
             exportName: 'S3WebhostBucketName',
-        })
+        });
+        new cdk.CfnOutput(this, 'S3BucketArn', {
+            value: this.cDKDemoBucket.bucketArn,
+            exportName: 'S3BucketArn',
+        });
         new cdk.CfnOutput(this, "DistributionDomainName", {
             value: this.distribution.distributionDomainName,
             exportName: 'CFDomainName',
-        })
+        });
     }
 }

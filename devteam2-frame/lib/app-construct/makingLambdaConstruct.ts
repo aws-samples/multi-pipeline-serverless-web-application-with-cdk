@@ -39,10 +39,8 @@ export class makingLambdaConstruct extends Construct {
         const rscPathName = props.resourceName.concat('s');
 
         this.innerLambda = new nodeLambda.NodejsFunction(this, `${props.resourceName}${capRscName}Lambda`, {
-            // code: lambda.Code.fromAsset(path.join(__dirname, `/../../lambda/${rscPathName}/${props.reqType}`)),
             entry: path.join(__dirname, `/../../lambda/${rscPathName}/${props.reqType}/index.js`),
             runtime: lambda.Runtime.NODEJS_16_X,
-            // handler: 'index.handler',
             memorySize: props.memorySize,
             timeout: cdk.Duration.seconds(props.timeOut),
             functionName: `${props.resourceName}${capRscName}Lambda`,

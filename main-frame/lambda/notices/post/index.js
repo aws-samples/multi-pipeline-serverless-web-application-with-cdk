@@ -15,7 +15,6 @@ const RESERVED_RESPONSE = `Error: You're using AWS reserved keywords as attribut
     DYNAMODB_EXECUTION_ERROR = `Error: Execution update, caused a Dynamodb error, please take a look at your CloudWatch Logs.`;
 
 exports.handler = async (event, context) => {
-    // var item = typeof event == 'object' ? event : JSON.parse(event.body);
     const item = typeof event.body == 'object' ? event.body : JSON.parse(event.body);
 
     const params = {

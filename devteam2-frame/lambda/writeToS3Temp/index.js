@@ -13,7 +13,7 @@ exports.handler = async (event) => {
         console.log('content : ' + content)
         console.log("Successfully saved object to " + bucketName + "/" + keyName);
     } catch (err) {
-            console.log(err);
+            console.log(err)
     };
     const response = {
         statusCode: 200,
