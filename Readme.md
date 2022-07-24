@@ -59,7 +59,7 @@ The mainframe stack also includes the process of attaching a manually created la
 
 ## Pre Requisite
 1. [Create AWS Account and Create User](https://aws.amazon.com/en/resources/create-account/)
-- In order for the CDK to work, the user must have the authority to the services included in the CDK. However, you can grant administrator privileges for convenience, but it should be avoided in the operating environment.
+- <span style="color: red">In order for the CDK to work, the user must have the authority to the services included in the CDK. However, you can grant administrator privileges for convenience, but it should be avoided in the operating environment.</span>
 2. [Overall installation process](https://aws.amazon.com/en/getting-started/guides/setup-cdk/)
 - Contains detailed information about local or cloud9, CLI, node, CDK Bootstrap
 3. AWS CLI - Version : aws-cli/2.7.14 Python/3.9.11 Darwin/20.6.0 exe/x86_64 prompt/off
@@ -70,7 +70,15 @@ The mainframe stack also includes the process of attaching a manually created la
 8. [SAM Install](https://docs.aws.amazon.com/en_us/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html)
 
 ## Set up the Project
-1. 프로젝트 셋업 방법
+- - Main-frame must be completed first before starting devteam2-frame.
+```shell
+$ git clone https://github.com/~~~~~~
+$ cd main-frame
+$ cdk deploy --all --outputs-file ./cdk-outputs.json
+$ # wait to complete main-frame
+$ cd ../devteam2-frame
+$ cdk deploy --all --outputs-file ./cdk-outputs.json
+```
 
 ----
 ## Verify deployment

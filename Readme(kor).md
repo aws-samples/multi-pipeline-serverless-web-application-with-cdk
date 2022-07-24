@@ -60,15 +60,28 @@
 
 ## Pre Requisite
 1. [AWS 계정 생성 및 사용자 생성](https://aws.amazon.com/ko/resources/create-account/)
-	- CDK가 동작하기 위해서는 CDK에서 포함하고 있는 서비스에 대한 권한을 사용자가 가지고 있어야 합니다. 하지만 수행의 편의성을 위해 administrator 권한을 부여할 수 있으나 운영 환경에서는 지양해야 합니다.
+	- <span style="color: red">CDK가 동작하기 위해서는 CDK에서 포함하고 있는 서비스에 대한 권한을 사용자가 가지고 있어야 합니다. 하지만 수행의 편의성을 위해 administrator 권한을 부여할 수 있으나 운영 환경에서는 지양해야 합니다.</span>
 2. [전반적 설치 과정](https://aws.amazon.com/ko/getting-started/guides/setup-cdk/)
-	- local or cloud9, CLI, node, CDK Bootstrap에 관한 자세한 내용이 포함되어 있음
+	- local or AWS Cloud9, CLI, node, CDK Bootstrap에 관한 자세한 내용이 포함되어 있음
+	- AWS Cloud9을 사용하는 경우 하기의 기본적인 
 3. AWS CLI - Version : aws-cli/2.7.14 Python/3.9.11 Darwin/20.6.0 exe/x86_64 prompt/off
 4. node : v16.16
-5. cdk 2.33.0 (build 859272d)
+5. cdk 2.33.0 (build 859272d) or cdk 2.0 ~
 6. Docker Install
 7. CDK Bootstrap
+![cdk toolkit](./resource/CDKToolkit.png)
+- 만약 CDK Toolkit이 Cloudformation에 보이지 않는 경우 프로젝트를 정상적으로 실행할 수 없으니 확인이 필요합니다.
 8. [SAM Install](https://docs.aws.amazon.com/ko_kr/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html)
 
 ## Set up the Project
-1. 
+- devteam2-frame을 시작하기 전에 main-frame이 먼저 완료되어야 합니다.
+```shell
+$ git clone https://github.com/~~~~~~
+$ cd main-frame
+$ npm install
+$ cdk deploy --all --outputs-file ./cdk-outputs.json
+$ # wait to complete main-frame
+$ cd ../devteam2-frame
+$ npm install
+$ cdk deploy --all --outputs-file ./cdk-outputs.json
+```
