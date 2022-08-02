@@ -89,7 +89,7 @@ The mainframe stack also includes the process of attaching a manually created la
 	- If the CDK Toolkit is not visible in Cloudformation, the project cannot be run normally, so you need to check it.
 8. [SAM Install](https://docs.aws.amazon.com/en_us/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html)
 9. Create Lambda
-	- <span style="color: blue">Reference the manually created Lambda with the name 'helloworld' in the CDK Stack and connect it to API Gateway.</span>
+	- <span style="color: red">Reference the manually created Lambda with the name 'helloworld' in the CDK Stack and connect it to API Gateway.</span>
 ![LambdaCreate](./resource/LambdaCreate.png)
 
 ## Set up the Project
@@ -97,7 +97,8 @@ The mainframe stack also includes the process of attaching a manually created la
 - When using AWS Cloud9, you must increase the EBS volume capacity. (The default is 10GB, so increase it to 20GB. Follow the instructions during the steps below)  
 ![awsConfigure](./resource/awsConfigure.png)
 ```shell
-$ git clone https://github.com/~~~~~~
+$ git clone https://github.com/aws-samples/multi-pipeline-serverless-web-application-
+with-cdk
 $ cd directory
 $ 
 $ # If you are using Cloud9 Do this
@@ -107,6 +108,9 @@ $
 $ cd main-frame
 $ npm install
 $ cdk deploy --all --outputs-file ./cdk-outputs.json # type y if ask soemthing, takes about 10 min.
+$ # If there is error, please check belows
+$ # 1. cdk bootstrap aws://ACCOUNT-NUMBER/REGION
+$ # 2. Did you make lambda name with 'helloword'
 $ 
 $ # wait to complete main-frame
 $ cd ../devteam2-frame

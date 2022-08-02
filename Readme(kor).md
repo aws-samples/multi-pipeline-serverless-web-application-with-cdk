@@ -90,7 +90,7 @@
 	- 만약 CDK Toolkit이 Cloudformation에 보이지 않는 경우 프로젝트를 정상적으로 실행할 수 없으니 확인이 필요합니다.
 8. [SAM Install](https://docs.aws.amazon.com/ko_kr/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html)
 9. Lambda 생성
-	- <span style="color: blue">매뉴얼로 만든 'helloworld' 이름을 가진 Lambda를 CDK Stack에서 참조하고 이를 API Gateway에 연결합니다.</span>
+	- <span style="color: red">매뉴얼로 만든 'helloworld' 이름을 가진 Lambda를 CDK Stack에서 참조하고 이를 API Gateway에 연결합니다.</span>
 ![LambdaCreate](./resource/LambdaCreate.png)
 
 
@@ -99,7 +99,8 @@
 - AWS Cloud9을 사용하는 경우 꼭 EBS 볼륨 용량을 늘려줘야 합니다. (기본 10GB이므로 20GB로 늘려줍니다. 아래 단계 과정 중 안내에 따라 진행)  
 ![awsConfigure](./resource/awsConfigure.png)
 ```shell
-$ git clone https://github.com/~~~~~~
+$ git clone https://github.com/aws-samples/multi-pipeline-serverless-web-application-
+with-cdk
 $ cd directory
 $ 
 $ # If you are using Cloud9 Do this
@@ -109,6 +110,9 @@ $
 $ cd main-frame
 $ npm install
 $ cdk deploy --all --outputs-file ./cdk-outputs.json # type y if ask soemthing, takes about 10 min.
+$ # If there is error, please check belows
+$ # 1. cdk bootstrap aws://ACCOUNT-NUMBER/REGION
+$ # 2. Did you make lambda name with 'helloword'
 $ 
 $ # wait to complete main-frame
 $ cd ../devteam2-frame
