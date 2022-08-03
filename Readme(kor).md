@@ -99,8 +99,7 @@
 - AWS Cloud9을 사용하는 경우 꼭 EBS 볼륨 용량을 늘려줘야 합니다. (기본 10GB이므로 20GB로 늘려줍니다. 아래 단계 과정 중 안내에 따라 진행)  
 ![awsConfigure](./resource/awsConfigure.png)
 ```shell
-$ git clone https://github.com/aws-samples/multi-pipeline-serverless-web-application-
-with-cdk
+$ git clone https://github.com/aws-samples/multi-pipeline-serverless-web-application-with-cdk
 $ cd directory
 $ 
 $ # If you are using Cloud9 Do this

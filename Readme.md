@@ -97,8 +97,7 @@ The mainframe stack also includes the process of attaching a manually created la
 - When using AWS Cloud9, you must increase the EBS volume capacity. (The default is 10GB, so increase it to 20GB. Follow the instructions during the steps below)  
 ![awsConfigure](./resource/awsConfigure.png)
 ```shell
-$ git clone https://github.com/aws-samples/multi-pipeline-serverless-web-application-
-with-cdk
+$ git clone https://github.com/aws-samples/multi-pipeline-serverless-web-application-with-cdk
 $ cd directory
 $ 
 $ # If you are using Cloud9 Do this
