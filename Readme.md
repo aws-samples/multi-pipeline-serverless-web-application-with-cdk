@@ -298,3 +298,12 @@ $ sam local invoke -t ./cdk.out/MainFrameStack.template.json lambdaLocalTest
 * `cdk synth`       emits the synthesized CloudFormation template
 * `cdk deploy --all --outputs-file ./cdk-outputs.json`  deploy whole stack within a project
 * `cdk deploy --hotswap`    quickly deploy lambda
+
+## Security
+
+See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.
+
