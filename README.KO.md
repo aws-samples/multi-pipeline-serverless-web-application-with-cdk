@@ -86,6 +86,14 @@
 5. cdk 2.33.0 (build 859272d) or cdk 2.0 ~
 6. Docker Install
 7. CDK Bootstrap  
+    ```shell
+	$ ## Check account information
+	$ aws sts get-caller-identity
+
+	$ ## 위에서 나온 값 중 "Account" 뒤의 숫자가 아래의 ACCOUNT-NUMBER
+	$ ## Region은 ap-northeast-2 입력
+	$ cdk bootstrap aws://ACCOUNT-NUMBER/REGION
+	```
 ![cdktoolkit](./resource/CDKToolkit.png)
 	- 만약 CDK Toolkit이 Cloudformation에 보이지 않는 경우 프로젝트를 정상적으로 실행할 수 없으니 확인이 필요합니다.
 8. [SAM Install](https://docs.aws.amazon.com/ko_kr/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html)
@@ -100,7 +108,7 @@
 ![awsConfigure](./resource/awsConfigure.png)
 ```shell
 $ git clone https://github.com/aws-samples/multi-pipeline-serverless-web-application-with-cdk
-$ cd directory
+$ cd multi-pipeline-serverless-web-application-with-cdk
 $ 
 $ # If you are using Cloud9 Do this
 $ chmod +x resize.sh

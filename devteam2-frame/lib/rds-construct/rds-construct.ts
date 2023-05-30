@@ -91,7 +91,7 @@ export class RdsConstruct extends Construct {
             credentials: rds.Credentials.fromSecret(this.dbCredentialSecret),
             multiAz: false,
             allocatedStorage: 100,
-            maxAllocatedStorage: 105,
+            maxAllocatedStorage: 120,
             allowMajorVersionUpgrade: true,
             autoMinorVersionUpgrade: true,
             backupRetention: cdk.Duration.days(0),

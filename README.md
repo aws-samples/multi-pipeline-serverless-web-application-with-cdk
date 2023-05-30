@@ -84,7 +84,15 @@ The mainframe stack also includes the process of attaching a manually created la
 4. node: v16.16
 5. cdk 2.33.0 (build 859272d) or cdk 2.0 ~
 6. Docker Install
-7. CDK Bootstrap   
+7. CDK Bootstrap  
+    ```shell
+	$ ## Check account information
+	$ aws sts get-caller-identity
+
+	$ ## The number after "Account" of the above values is ACCOUNT-NUMBER
+	$ ## Region : ap-northeast-2
+	$ cdk bootstrap aws://ACCOUNT-NUMBER/REGION
+	```
 ![CDKToolkit](./resource/CDKToolkit.png)
 	- If the CDK Toolkit is not visible in Cloudformation, the project cannot be run normally, so you need to check it.
 8. [SAM Install](https://docs.aws.amazon.com/en_us/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html)
@@ -98,7 +106,7 @@ The mainframe stack also includes the process of attaching a manually created la
 ![awsConfigure](./resource/awsConfigure.png)
 ```shell
 $ git clone https://github.com/aws-samples/multi-pipeline-serverless-web-application-with-cdk
-$ cd directory
+$ cd multi-pipeline-serverless-web-application-with-cdk
 $ 
 $ # If you are using Cloud9 Do this
 $ chmod +x resize.sh
