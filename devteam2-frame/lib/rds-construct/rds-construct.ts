@@ -82,7 +82,7 @@ export class RdsConstruct extends Construct {
               subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
             },
             engine: rds.DatabaseInstanceEngine.mysql({
-              version: rds.MysqlEngineVersion.VER_8_0_28,
+              version: rds.MysqlEngineVersion.VER_8_0_36,
             }),
             instanceType: ec2.InstanceType.of(
               ec2.InstanceClass.T3,
@@ -102,7 +102,7 @@ export class RdsConstruct extends Construct {
             publiclyAccessible: false,
             parameterGroup: new rds.ParameterGroup(this, 'parameterGroup', {
                 engine: rds.DatabaseInstanceEngine.mysql({
-                    version: rds.MysqlEngineVersion.VER_8_0_28,
+                    version: rds.MysqlEngineVersion.VER_8_0_36,
                 }),
                 parameters: {
                     character_set_client: 'utf8mb4',

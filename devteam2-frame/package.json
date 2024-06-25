@@ -24,7 +24,7 @@
     "aws-cdk-lib": "2.32.1",
     "constructs": "^10.0.0",
     "mysql": "^2.18.1",
-    "mysql2": "^2.3.3",
+    "mysql2": "^3.9.8",
     "source-map-support": "^0.5.21"
   }
 }
