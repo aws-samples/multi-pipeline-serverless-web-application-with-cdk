@@ -84,20 +84,40 @@
 3. AWS CLI - Version : aws-cli/2.7.14 Python/3.9.11 Darwin/20.6.0 exe/x86_64 prompt/off
 4. node : v20 이상 (v22 LTS 권장). aws-cdk-lib 2.265.0이 Node >= 20을 요구합니다.
 5. cdk 2.1137.0 or cdk 2.0 ~
-6. Docker Install
-7. CDK Bootstrap  
+6. Docker Install, 그리고 **phase 2 이전에 Docker 데몬을 실행**해야 합니다. `devteam2-frame`은 람다를 `aws-lambda-nodejs`(`NodejsFunction`)로 빌드하는데, 로컬에 `esbuild`가 없으면 Docker로 번들링합니다. Docker를 띄우지 않으려면 `devteam2-frame`에서 `npm install --save-dev esbuild`를 하면 로컬 번들링으로 처리됩니다.
+7. RDS service-linked role 생성 권한. `devteam2-frame`은 RDS 인스턴스를 만들고, `AWSServiceRoleForRDS`가 없으면 CloudFormation이 생성에 실패합니다. 계정에서 RDS를 한 번도 만든 적이 없다면 배포 주체에 `rds.amazonaws.com`에 대한 `iam:CreateServiceLinkedRole` 권한이 필요합니다.
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": "iam:CreateServiceLinkedRole",
+                "Resource": "arn:aws:iam::*:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS",
+                "Condition": {
+                    "StringLike": { "iam:AWSServiceName": "rds.amazonaws.com" }
+                }
+            }
+        ]
+    }
+    ```
+    [Amazon RDS의 서비스 연결 역할 사용](https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html) 참고.
+8. 리전. 두 frame 모두 `config/shared.ts`의 `REGION`을 사용하고, 이 값은 CDK CLI가 AWS 프로파일에서 해석한 `CDK_DEFAULT_REGION`을 따릅니다. 다른 리전에 배포하려고 소스를 고칠 필요가 없습니다. CLI가 리전을 해석하지 못하면 `ap-northeast-2`로 폴백합니다.
+
+    **두 frame이 같은 리전으로 해석되어야 합니다.** `devteam2-frame`은 `Fn.importValue`로 `main-frame`의 CloudFormation export를 읽는데 export는 리전 범위이므로, 리전이 갈리면 export를 찾지 못해 실패합니다.
+9. CDK Bootstrap  
     ```shell
 	$ ## Check account information
 	$ aws sts get-caller-identity
 
 	$ ## 위에서 나온 값 중 "Account" 뒤의 숫자가 아래의 ACCOUNT-NUMBER
-	$ ## Region은 ap-northeast-2 입력
+	$ ## REGION은 AWS 프로파일이 해석하는 리전과 일치해야 합니다 (8번 항목 참고)
 	$ cdk bootstrap aws://ACCOUNT-NUMBER/REGION
 	```
 ![cdktoolkit](./resource/CDKToolkit.png)
 	- 만약 CDK Toolkit이 Cloudformation에 보이지 않는 경우 프로젝트를 정상적으로 실행할 수 없으니 확인이 필요합니다.
-8. [SAM Install](https://docs.aws.amazon.com/ko_kr/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html)
-9. Lambda 생성
+10. [SAM Install](https://docs.aws.amazon.com/ko_kr/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html)
+11. Lambda 생성
 	- <span style="color: red">매뉴얼로 만든 'helloworld' 이름을 가진 Lambda를 CDK Stack에서 참조하고 이를 API Gateway에 연결합니다.</span>
 ![LambdaCreate](./resource/LambdaCreate.png)
 

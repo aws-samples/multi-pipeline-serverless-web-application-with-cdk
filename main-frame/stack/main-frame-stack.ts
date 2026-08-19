@@ -2,7 +2,7 @@ import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { ApiGWConstruct } from '../lib/infra-constructs/apigateway-construct/apigateway-construct';
 import { ApiRscMethod } from '../lib/infra-constructs/apigateway-construct/apigateway-rscMethod';
-// import { CognitoConstruct } from '../lib/constructs-infra/cognito-construct/cognito-construct';
+// import { CognitoConstruct } from '../lib/infra-constructs/cognito-construct/cognito-construct';
 import { S3WebhostConstruct } from '../lib/infra-constructs/s3-webhost-construct/s3-webhost-construct';
 import * as cdk from 'aws-cdk-lib';
 import { CONSTANTS } from '../config/shared';
