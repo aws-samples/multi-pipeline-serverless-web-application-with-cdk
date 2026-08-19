@@ -8,3 +8,5 @@ target
 .cdk.staging
 cdk.out
 cdk-outputs.json
+# Committed synth output leaks absolute local paths (see issue #9d)
+template.yaml

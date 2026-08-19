@@ -83,20 +83,40 @@ The mainframe stack also includes the process of attaching a manually created la
 3. AWS CLI - Version : aws-cli/2.7.14 Python/3.9.11 Darwin/20.6.0 exe/x86_64 prompt/off
 4. node: v20 or later (v22 LTS recommended). aws-cdk-lib 2.265.0 requires Node >= 20.
 5. cdk 2.1137.0 or cdk 2.0 ~
-6. Docker Install
-7. CDK Bootstrap  
+6. Docker Install, and **start the Docker daemon before phase 2**. `devteam2-frame` builds its lambdas with `aws-lambda-nodejs` (`NodejsFunction`), which bundles through Docker unless a local `esbuild` is available. If you would rather not run Docker, `npm install --save-dev esbuild` inside `devteam2-frame` and the bundling happens locally instead.
+7. IAM permission for the RDS service-linked role. `devteam2-frame` creates an RDS instance, and CloudFormation cannot do that until `AWSServiceRoleForRDS` exists. If your account has never created an RDS instance, the deploying principal needs `iam:CreateServiceLinkedRole` for `rds.amazonaws.com`:
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": "iam:CreateServiceLinkedRole",
+                "Resource": "arn:aws:iam::*:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS",
+                "Condition": {
+                    "StringLike": { "iam:AWSServiceName": "rds.amazonaws.com" }
+                }
+            }
+        ]
+    }
+    ```
+    See [Using service-linked roles for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAM.ServiceLinkedRoles.html).
+8. Region. Both frames read `REGION` from `config/shared.ts`, which follows `CDK_DEFAULT_REGION`, the region the CDK CLI resolves from your AWS profile. You do not need to edit any source to deploy elsewhere. It falls back to `ap-northeast-2` when the CLI cannot resolve a region.
+
+    **Both frames must resolve to the same region.** `devteam2-frame` reads `main-frame`'s CloudFormation exports through `Fn.importValue`, and exports are region-scoped, so a split across two regions fails with a missing-export error.
+9. CDK Bootstrap  
     ```shell
 	$ ## Check account information
 	$ aws sts get-caller-identity
 
 	$ ## The number after "Account" of the above values is ACCOUNT-NUMBER
-	$ ## Region : ap-northeast-2
+	$ ## REGION must match the region your AWS profile resolves to (see item 8)
 	$ cdk bootstrap aws://ACCOUNT-NUMBER/REGION
 	```
 ![CDKToolkit](./resource/CDKToolkit.png)
 	- If the CDK Toolkit is not visible in Cloudformation, the project cannot be run normally, so you need to check it.
-8. [SAM Install](https://docs.aws.amazon.com/en_us/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html)
-9. Create Lambda
+10. [SAM Install](https://docs.aws.amazon.com/en_us/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html)
+11. Create Lambda
 	- <span style="color: red">Reference the manually created Lambda with the name 'helloworld' in the CDK Stack and connect it to API Gateway.</span>
 ![LambdaCreate](./resource/LambdaCreate.png)
 

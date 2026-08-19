@@ -3,9 +3,10 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { MainFrameStack } from '../stack/main-frame-stack';
 import { DevTeam1Stack } from '../stack/dveteam1-stack';
+import { CONSTANTS } from '../config/shared';
 
 const envObj = {
-  region: 'ap-northeast-2'
+  region: CONSTANTS.REGION
 }
 
 const app = new cdk.App();
