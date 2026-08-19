@@ -82,8 +82,8 @@
 	- local or AWS Cloud9, CLI, node, CDK Bootstrap에 관한 자세한 내용이 포함되어 있음
 	- AWS Cloud9을 사용하는 경우 하기의 기본적인 설치 과정을 건너뛰고 빠르게 시작할 수 있습니다. (Cloud9 인스턴스가 소유한 Role에 위 1번에서 언급한 정책 부여 필요 - ex. Administrator policy)
 3. AWS CLI - Version : aws-cli/2.7.14 Python/3.9.11 Darwin/20.6.0 exe/x86_64 prompt/off
-4. node : v16.16
-5. cdk 2.33.0 (build 859272d) or cdk 2.0 ~
+4. node : v20 이상 (v22 LTS 권장). aws-cdk-lib 2.265.0이 Node >= 20을 요구합니다.
+5. cdk 2.1137.0 or cdk 2.0 ~
 6. Docker Install
 7. CDK Bootstrap  
     ```shell

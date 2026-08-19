@@ -81,8 +81,8 @@ The mainframe stack also includes the process of attaching a manually created la
 	- Contains detailed information about local or AWS Cloud9, CLI, node, CDK Bootstrap
 	- If you are using AWS Cloud9, you can skip the basic installation process below and get started quickly. (Requires granting the policy mentioned in step 1 above to the role owned by the Cloud9 instance - ex. Administrator policy)
 3. AWS CLI - Version : aws-cli/2.7.14 Python/3.9.11 Darwin/20.6.0 exe/x86_64 prompt/off
-4. node: v16.16
-5. cdk 2.33.0 (build 859272d) or cdk 2.0 ~
+4. node: v20 or later (v22 LTS recommended). aws-cdk-lib 2.265.0 requires Node >= 20.
+5. cdk 2.1137.0 or cdk 2.0 ~
 6. Docker Install
 7. CDK Bootstrap  
     ```shell
