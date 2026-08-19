@@ -17,6 +17,7 @@ You can also learn about the benefits of the [AWS CDK](https://aws.amazon.com/ko
   - [Clean up](#Clean-up)
   - [Appendix](#Appendix)
   - [Explore other additional features](#Explore-other-additional-features)
+  - [Optional extensions](#Optional-extensions)
 
 ## Architecture
 ![demo2-archi](./resource/demo2-archi.png)
@@ -315,6 +316,126 @@ $ sam local invoke -t ./cdk.out/MainFrameStack.template.json lambdaLocalTest
 ### example
 * `sam local invoke -t ./cdk.out/Devteam2FrameStack.template.json boardGet`
 
+
+## Optional extensions
+
+Answers to the requests in issue #10. Each one is opt-in: the sample deploys
+without any of them.
+
+### Put the API behind Cognito
+
+`main-frame` already ships `CognitoConstruct` (a user pool, a user pool client
+with SRP auth, and a hosted domain), wired into `MainFrameStack` as three
+commented-out lines. Uncomment them in `main-frame/stack/main-frame-stack.ts`:
+
+```ts
+import { CognitoConstruct } from '../lib/infra-constructs/cognito-construct/cognito-construct';
+// ...
+const cognitoUserPools = new CognitoConstruct(this, 'CognitoUserPool', {});
+// ...
+const apiRscMethod = new ApiRscMethod(this, 'apiRdcMethod', {
+  apiGW: this.apiGwConstruct.apiGW,
+  cognitoUserPool: cognitoUserPools.userPool,
+});
+```
+
+`cognitoUserPool` is optional on `ApiGWContructProps`. When you pass it,
+`ApiRscMethod` attaches a `CognitoUserPoolsAuthorizer` to the `GET /temporary`
+method; when you leave it out, the method stays open and the synthesized
+template is byte-identical to the default. Callers then need an `Authorization`
+header carrying a user pool ID token.
+
+The hosted domain prefix is derived from `CONSTANTS.PROJECT_NAME`
+(`cdkdemo-app`) and Cognito domain prefixes are globally unique, so change
+`PROJECT_NAME` in `config/shared.ts` if the deploy reports the prefix is taken.
+
+The `CfnIdentityPool` block inside `cognito-construct.ts` stays commented out.
+It is only needed if you want browser clients to assume an IAM role and call
+AWS APIs directly, which this sample does not do.
+
+### Bundling a lambda with extra npm modules
+
+This is what `aws-lambda-nodejs` is for, and `devteam2-frame` already does it.
+See `devteam2-frame/lib/app-construct/createTable-lambda.ts`:
+
+```ts
+const createTableLambda = new nodeLambda.NodejsFunction(this, 'createTableLambda', {
+  entry: path.join(__dirname, '/../../lambda/boards/createTable/index.js'),
+  bundling: {
+    nodeModules: ['mysql2'],
+  },
+});
+```
+
+`nodeModules` names packages that should be installed into the bundle rather
+than inlined by esbuild. Add the dependency to the frame's `package.json`
+first, then list it here. A payment SDK works the same way: add `stripe` to
+`devteam2-frame/package.json`, put `stripe` in `nodeModules`, and
+`require('stripe')` from the handler.
+
+Two neighbouring options are worth knowing:
+
+- `externalModules` excludes a package from the bundle entirely, for things the
+  Lambda runtime already provides. On Node 18 and later that is the AWS SDK v3
+  (`@aws-sdk/*`), not v2.
+- `forceDockerBundling: true` pins bundling to Docker even when a local
+  `esbuild` exists, which is useful when a dependency has native bindings that
+  must be compiled for the Lambda platform rather than your laptop.
+
+Bundling needs either a local `esbuild` or a running Docker daemon. See item 6
+under [Pre Requisite](#Pre-Requisite).
+
+### Rotating the RDS password
+
+`devteam2-frame` creates a Secrets Manager secret named `db-credentials` with a
+generated password, and both the RDS instance
+(`rds.Credentials.fromSecret(...)`) and the RDS Proxy (`secrets: [...]`) read
+from it. To see the current value:
+
+```shell
+$ aws secretsmanager get-secret-value --secret-id db-credentials \
+    --query SecretString --output text
+```
+
+**Do not edit that secret value by hand.** RDS does not re-read the secret, so
+the database password stays what it was while the secret says otherwise, and
+the RDS Proxy then fails authentication against the instance.
+
+To rotate it properly, let Secrets Manager change both sides together. Add one
+line to `devteam2-frame/lib/rds-construct/rds-construct.ts`, after
+`this.dbInstance` is created:
+
+```ts
+this.dbInstance.addRotationSingleUser({
+  automaticallyAfter: cdk.Duration.days(30),
+  vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+  endpoint: this.secretManagerVpcEndpoint,
+});
+```
+
+That provisions the rotation lambda in the VPC and schedules it, so the
+instance password and the secret change together and never drift apart.
+
+`endpoint` is not optional in practice here. This VPC is built with
+`natGateways: 0` and every subnet is `PRIVATE_ISOLATED`, so the rotation lambda
+has no route to the public Secrets Manager API. It has to go through the
+interface endpoint the construct creates, which is exposed as
+`secretManagerVpcEndpoint` for exactly this purpose. Omit `endpoint` and
+rotation will sit there timing out.
+
+One character-set note: the initial secret is generated with
+`excludePunctuation: true`. Rotation uses its own `excludeCharacters` default,
+so set it explicitly if anything downstream depends on the password having no
+punctuation.
+
+### Not covered: the web app build pipeline
+
+Issue #10 also asks for the Vue.js source and a build workflow behind
+`main-frame/website-dist`. That is a separate frontend project rather than a
+change to this CDK sample, and it is not in this repository. `website-dist`
+ships prebuilt, and `WriteWebhostEnvConstruct` writes the API Gateway endpoint
+into the bucket at deploy time so the static bundle can find the API without a
+rebuild.
 
 ## Useful commands - CDK
 

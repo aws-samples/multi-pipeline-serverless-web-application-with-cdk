@@ -13,6 +13,10 @@ export class RdsConstruct extends Construct {
     public iamRoleForLambda: iam.Role;
     public lambdaToProxySg: ec2.SecurityGroup;
     public dbCredentialSecret: secretManger.Secret;
+    // Exposed so addRotationSingleUser can be pointed at it. Every subnet here is
+    // PRIVATE_ISOLATED with natGateways: 0, so a rotation lambda has no route to the
+    // Secrets Manager API except through this endpoint.
+    public secretManagerVpcEndpoint: ec2.InterfaceVpcEndpoint;
 
     constructor(scope: Construct, id: string, props?: any) {
         super(scope, id);
@@ -70,7 +74,7 @@ export class RdsConstruct extends Construct {
         });
 
         // Lambda Interface Endpoint
-        new ec2.InterfaceVpcEndpoint(this, 'SecretManagerVpcEndpoint', {
+        this.secretManagerVpcEndpoint = new ec2.InterfaceVpcEndpoint(this, 'SecretManagerVpcEndpoint', {
             vpc: this.vpc,
             service: ec2.InterfaceVpcEndpointAwsService.SECRETS_MANAGER,
         });
