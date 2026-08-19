@@ -18,7 +18,7 @@ export class InsertDatasToDdbConstruct extends Construct {
         // create lambda
         const ddbInitLambda = new lambda.Function(this, 'ddbInitLambda', {
             code: lambda.Code.fromAsset(path.join(__dirname, '/../../lambda/notices/setData')),
-            runtime: lambda.Runtime.NODEJS_16_X,
+            runtime: lambda.Runtime.NODEJS_24_X,
             handler: 'index.handler',
             memorySize: 256,
             timeout: cdk.Duration.seconds(60),

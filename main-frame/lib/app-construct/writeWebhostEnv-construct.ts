@@ -19,7 +19,7 @@ export class WriteWebhostEnvConstruct extends Construct {
 
         const writeEnvLambda = new lambda.Function(this, 'writeEnvLambda', {
             code: lambda.Code.fromAsset(path.join(__dirname, '/../../lambda/writeToS3')),
-            runtime: lambda.Runtime.NODEJS_16_X,
+            runtime: lambda.Runtime.NODEJS_24_X,
             handler: 'index.handler',
             memorySize: 256,
             timeout: cdk.Duration.seconds(60),

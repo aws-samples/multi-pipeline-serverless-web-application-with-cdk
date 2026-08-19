@@ -1,5 +1,5 @@
-var AWS = require('aws-sdk');
-var s3 = new AWS.S3();
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const s3 = new S3Client({});
 
 exports.handler = async (event) => {
     var bucketName = process.env.BUCKET_NAME;
@@ -9,7 +9,7 @@ exports.handler = async (event) => {
     var params = { 'Bucket': bucketName, 'Key': keyName, 'Body': content };
     try {
         console.log('entrato')
-        const data = await s3.putObject(params).promise();
+        const data = await s3.send(new PutObjectCommand(params));
         console.log('content : ' + content)
         console.log("Successfully saved object to " + bucketName + "/" + keyName);
     } catch (err) {

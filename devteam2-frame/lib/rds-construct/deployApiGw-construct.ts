@@ -17,7 +17,7 @@ export class DeployApiGwConstruct extends Construct {
 
         const deployApiGwLambda = new nodeLambda.NodejsFunction(this, 'deployApiGwLambda', {
             entry: path.join(__dirname, '/../../lambda/deployApiGw/index.js'),
-            runtime: lambda.Runtime.NODEJS_16_X,
+            runtime: lambda.Runtime.NODEJS_24_X,
             memorySize: 256,
             timeout: cdk.Duration.minutes(2),
             functionName: 'deployApiGw',

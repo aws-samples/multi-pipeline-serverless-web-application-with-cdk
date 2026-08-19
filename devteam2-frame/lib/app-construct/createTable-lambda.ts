@@ -19,7 +19,7 @@ export class CreateTableLmabdaConstruct extends Construct{
 
         const createTableLambda = new nodeLambda.NodejsFunction(this, 'createTableLambda', {
             entry: path.join(__dirname, '/../../lambda/boards/createTable/index.js'),
-            runtime: lambda.Runtime.NODEJS_16_X,
+            runtime: lambda.Runtime.NODEJS_24_X,
             memorySize: 256,
             timeout: cdk.Duration.minutes(2),
             functionName: 'boardCreateTableLambda',
