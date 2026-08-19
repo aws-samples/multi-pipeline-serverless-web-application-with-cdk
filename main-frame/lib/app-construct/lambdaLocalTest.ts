@@ -10,7 +10,7 @@ export class LambdaLocalTest extends Construct {
 
         const innerLambda = new lambda.Function(this, 'testLambda', {
             code: lambda.Code.fromAsset(path.join(__dirname, `/../../lambda/lambdaLocalTest`)),
-            runtime: lambda.Runtime.NODEJS_16_X,
+            runtime: lambda.Runtime.NODEJS_24_X,
             handler: 'index.handler',
             memorySize: 256,
             timeout: cdk.Duration.seconds(20),

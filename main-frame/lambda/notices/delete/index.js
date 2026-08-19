@@ -1,10 +1,7 @@
-const AWS = require('aws-sdk');
-const ddb = new AWS.DynamoDB.DocumentClient();
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, DeleteCommand } = require('@aws-sdk/lib-dynamodb');
+const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
-// AWS.config.update({
-//     region: 'ap-northeast-2',
-//     endpoint: "http://dynamodb.ap-northeast-2.amazonaws.com"
-// })
 const headers = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -26,7 +23,7 @@ exports.handler = async (event, context) => {
         }
     };
     try {
-        const response = await ddb.delete(params).promise();
+        const response = await ddb.send(new DeleteCommand(params));
         console.log('response : ');
         console.log(response);
 
@@ -36,8 +33,6 @@ exports.handler = async (event, context) => {
             headers,
         };
     } catch (dbError) {
-        // const errorResponse = dbError.code === 'ValidationException' && dbError.message.includes('reserved keyword') ?
-        //     DYNAMODB_EXECUTION_ERROR : RESERVED_RESPONSE;
         console.log(dbError);
         return { statusCode: 500, body: dbError, headers };
     }

@@ -224,8 +224,9 @@ $ cdk destroy --all # it takes about ~10 min.
 
 1. Add `console.log('hotswap test);` to main-frame/lambda/notices/getOne/index.js line 13 and save
 ```javascript
-const AWS = require('aws-sdk');
-const ddb = new AWS.DynamoDB.DocumentClient();
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
+const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
 const headers = {
     "Content-Type": "application/json",
@@ -377,7 +378,11 @@ Two neighbouring options are worth knowing:
 
 - `externalModules` excludes a package from the bundle entirely, for things the
   Lambda runtime already provides. On Node 18 and later that is the AWS SDK v3
-  (`@aws-sdk/*`), not v2.
+  (`@aws-sdk/*`), not v2. CDK already defaults it to `['@aws-sdk/*']` for these
+  runtimes, which is why the handlers `require` SDK clients that appear in no
+  `package.json`: they resolve from the runtime, not the bundle. Pass
+  `bundleAwsSDK: true` if you would rather pin the SDK version yourself, which
+  is what AWS recommends for production.
 - `forceDockerBundling: true` pins bundling to Docker even when a local
   `esbuild` exists, which is useful when a dependency has native bindings that
   must be compiled for the Lambda platform rather than your laptop.

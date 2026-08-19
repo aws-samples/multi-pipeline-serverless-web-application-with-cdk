@@ -40,7 +40,7 @@ export class makingLambdaConstruct extends Construct {
 
         this.innerLambda = new nodeLambda.NodejsFunction(this, `${props.resourceName}${capRscName}Lambda`, {
             entry: path.join(__dirname, `/../../lambda/${rscPathName}/${props.reqType}/index.js`),
-            runtime: lambda.Runtime.NODEJS_16_X,
+            runtime: lambda.Runtime.NODEJS_24_X,
             memorySize: props.memorySize,
             timeout: cdk.Duration.seconds(props.timeOut),
             functionName: `${props.resourceName}${capRscName}Lambda`,
@@ -54,7 +54,6 @@ export class makingLambdaConstruct extends Construct {
             environment: {
                 PROXY_ENDPOINT: rdsProps.rdsConstruct.proxy.endpoint,
                 RDS_SECRET_NAME: 'db-credentials',
-                AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
                 DB_NAME: `${CONSTANTS.PROJECT_NAME.toLowerCase()}`
             },
             bundling: {

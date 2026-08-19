@@ -1,5 +1,6 @@
-const AWS = require('aws-sdk');
-const ddb = new AWS.DynamoDB.DocumentClient();
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
+const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
 const headers = {
     "Content-Type": "application/json",
@@ -10,7 +11,7 @@ const headers = {
 exports.handler = async (event, context) => {
     const itemId = event.pathParameters.id;
     const titleParam = typeof event.body == 'object' ? event.body : JSON.parse(event.body);
-    
+
     if(!itemId) {
         console.log('Id is null');
         return { statusCode:404, body: 'Id is null'}
@@ -22,12 +23,12 @@ exports.handler = async (event, context) => {
                 "title": titleParam.title,
             }
         };
-        
+
         try {
-            const response = await ddb.get(params).promise();
+            const response = await ddb.send(new GetCommand(params));
             console.log('response : ');
             console.log(response);
-            
+
             if(response.Item) {
                 return {
                     statusCode: 200, body: JSON.stringify(response.Item),
@@ -38,6 +39,6 @@ exports.handler = async (event, context) => {
             }
         } catch (dbError) {
             return { statusCode: 500, body: dbError, headers };
-        }   
+        }
     }
 };

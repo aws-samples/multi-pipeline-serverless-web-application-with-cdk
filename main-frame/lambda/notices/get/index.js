@@ -1,5 +1,6 @@
-const AWS = require('aws-sdk');
-const ddb = new AWS.DynamoDB.DocumentClient();
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, ScanCommand } = require('@aws-sdk/lib-dynamodb');
+const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
 const headers = {
     "Content-Type": "application/json",
@@ -12,9 +13,9 @@ exports.handler = async (event, context) => {
     const params = {
         TableName: "cdkdemo_notice",
     };
-    
+
     try {
-        const response = await ddb.scan(params).promise();
+        const response = await ddb.send(new ScanCommand(params));
         console.log(response);
         if(response.Items) {
             return {
@@ -26,5 +27,5 @@ exports.handler = async (event, context) => {
         }
     } catch (dbError) {
         return { statusCode: 500, body: dbError, headers };
-    }   
+    }
 };

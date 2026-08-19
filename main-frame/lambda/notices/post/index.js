@@ -1,10 +1,7 @@
-const AWS = require('aws-sdk');
-const ddb = new AWS.DynamoDB.DocumentClient();
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, PutCommand } = require('@aws-sdk/lib-dynamodb');
+const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
-// AWS.config.update({
-//     region: 'ap-northeast-2',
-//     endpoint: "http://dynamodb.ap-northeast-2.amazonaws.com"
-// })
 const headers = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -22,18 +19,13 @@ exports.handler = async (event, context) => {
         Item: item,
     };
     try {
-        await ddb.put(params).promise();
+        await ddb.send(new PutCommand(params));
         return { statusCode: 201, body: JSON.stringify('nice'), headers };
     } catch (dbError) {
-        const errorResponse = dbError.code === 'ValidationException' && dbError.message.includes('reserved keyword') ?
+        // SDK v3 reports the service error code on `name`; v2 used `code`.
+        const errorResponse = dbError.name === 'ValidationException' && dbError.message.includes('reserved keyword') ?
             DYNAMODB_EXECUTION_ERROR : RESERVED_RESPONSE;
         console.log(dbError);
         return { statusCode: 500, body: errorResponse, headers };
     }
-    
-    // const response = {
-    //     statusCode: 200,
-    //     body: JSON.stringify('Hello from Lambda!'),
-    // };
-    // return response;
 };

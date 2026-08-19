@@ -226,8 +226,9 @@ $ cdk destroy --all # it takes about ~10 min.
 
 1. main-frame/lambda/notices/getOne/index.js 13번 줄에 `console.log('hotswap test);` 추가 후 저장
 ```javascript
-const AWS = require('aws-sdk');
-const ddb = new AWS.DynamoDB.DocumentClient();
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const { DynamoDBDocumentClient, GetCommand } = require('@aws-sdk/lib-dynamodb');
+const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
 const headers = {
     "Content-Type": "application/json",
@@ -381,7 +382,11 @@ const createTableLambda = new nodeLambda.NodejsFunction(this, 'createTableLambda
 
 - `externalModules`는 패키지를 번들에서 아예 제외합니다. Lambda 런타임이 이미
   제공하는 것에 씁니다. Node 18 이상에서는 AWS SDK v3(`@aws-sdk/*`)이며 v2가
-  아닙니다.
+  아닙니다. CDK가 이 런타임들에 대해 이미 `['@aws-sdk/*']`를 기본값으로 두기
+  때문에, 핸들러가 어느 `package.json`에도 없는 SDK 클라이언트를 require할 수
+  있습니다. 번들이 아니라 런타임에서 해석되기 때문입니다. SDK 버전을 직접
+  고정하고 싶으면 `bundleAwsSDK: true`를 주면 되고, AWS는 운영 환경에는 이 쪽을
+  권장합니다.
 - `forceDockerBundling: true`는 로컬 `esbuild`가 있어도 Docker 번들링을
   강제합니다. 네이티브 바인딩이 있는 의존성을 로컬이 아니라 Lambda 플랫폼에
   맞게 컴파일해야 할 때 유용합니다.

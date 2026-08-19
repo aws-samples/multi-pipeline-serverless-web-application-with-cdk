@@ -1,5 +1,5 @@
-var AWS = require('aws-sdk');
-var aPIGateway = new AWS.APIGateway();
+const { APIGatewayClient, CreateDeploymentCommand } = require('@aws-sdk/client-api-gateway');
+var aPIGateway = new APIGatewayClient({});
 
 var params = {
     restApiId: process.env.RESTAPI_ID,
@@ -8,7 +8,7 @@ var params = {
 
 exports.handler = async (event) => {
     try {
-        await aPIGateway.createDeployment(params).promise();
+        await aPIGateway.send(new CreateDeploymentCommand(params));
         console.log('success')
         return {
             statusCode: 200,

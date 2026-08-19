@@ -1,4 +1,4 @@
-var AWS = require("aws-sdk");
+const { SecretsManagerClient, GetSecretValueCommand } = require("@aws-sdk/client-secrets-manager");
 var mysql = require("mysql2/promise");
 var headers = {
   "Content-Type": "application/json",
@@ -11,21 +11,19 @@ exports.handler = async (event) => {
   const item = typeof event.body == 'object' ? event.body : JSON.parse(event.body);
 
   console.log('item : ' + item);
-  
-  const secretsManager = new AWS.SecretsManager({
-    region: "ap-northeast-2"
-  });
+
+  const secretsManager = new SecretsManagerClient({});
   // secret manager
-  const response = await secretsManager.getSecretValue({
+  const response = await secretsManager.send(new GetSecretValueCommand({
     SecretId: process.env.RDS_SECRET_NAME
-  }).promise();
+  }));
 
   const { host, username, password } = JSON.parse(response.SecretString);
-  
+
   const sql = 'INSERT INTO BOARD VALUES(NULL, ?, NOW());';
 
   console.log(sql);
-  
+
   const connection = await mysql.createConnection({
     host: process.env.PROXY_ENDPOINT,
     user: username,

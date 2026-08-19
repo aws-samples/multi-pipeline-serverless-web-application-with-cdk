@@ -1,4 +1,4 @@
-var AWS = require("aws-sdk");
+const { SecretsManagerClient, GetSecretValueCommand } = require("@aws-sdk/client-secrets-manager");
 var mysql = require("mysql2/promise");
 var headers = {
   "Content-Type": "application/json",
@@ -8,21 +8,19 @@ var headers = {
 
 exports.handler = async (event) => {
   console.log('starting query');
-  
-  const secretsManager = new AWS.SecretsManager({
-    region: "ap-northeast-2"
-  });
+
+  const secretsManager = new SecretsManagerClient({});
   // secret manager
-  const response = await secretsManager.getSecretValue({
+  const response = await secretsManager.send(new GetSecretValueCommand({
     SecretId: process.env.RDS_SECRET_NAME
-  }).promise();
+  }));
 
   const { host, username, password } = JSON.parse(response.SecretString);
-  
+
   const sql = 'SELECT * from BOARD;';
 
   console.log(sql);
-  
+
   const connection = await mysql.createConnection({
     host: process.env.PROXY_ENDPOINT,
     user: username,
@@ -34,7 +32,7 @@ exports.handler = async (event) => {
 
   console.log([rows]);
   console.log(JSON.stringify([rows]));
-  
+
   if([rows] != null) {
     return {
       statusCode: 200,
