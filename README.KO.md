@@ -18,6 +18,7 @@
   - [Clean up](#Clean-up)
   - [Appendix](#Appendix)
   - [그 밖의 추가적인 기능 살펴보기](#그-밖의-추가적인-기능-살펴보기)
+  - [Optional extensions](#Optional-extensions)
 
 ## Architecture
 ![demo2-archi](./resource/demo2-archi.png)
@@ -319,6 +320,122 @@ $ sam local invoke -t ./cdk.out/MainFrameStack.template.json lambdaLocalTest
 ### example
 * `sam local invoke -t ./cdk.out/Devteam2FrameStack.template.json boardGet`
 
+
+## Optional extensions
+
+issue #10의 요청 사항에 대한 답입니다. 모두 opt-in이며, 아무것도 적용하지 않아도
+샘플은 그대로 배포됩니다.
+
+### API를 Cognito로 보호하기
+
+`main-frame`에는 이미 `CognitoConstruct`(user pool, SRP 인증을 쓰는 user pool
+client, hosted domain)가 있고, `MainFrameStack`에 주석 3줄로 연결돼 있습니다.
+`main-frame/stack/main-frame-stack.ts`에서 주석을 해제하면 됩니다.
+
+```ts
+import { CognitoConstruct } from '../lib/infra-constructs/cognito-construct/cognito-construct';
+// ...
+const cognitoUserPools = new CognitoConstruct(this, 'CognitoUserPool', {});
+// ...
+const apiRscMethod = new ApiRscMethod(this, 'apiRdcMethod', {
+  apiGW: this.apiGwConstruct.apiGW,
+  cognitoUserPool: cognitoUserPools.userPool,
+});
+```
+
+`cognitoUserPool`은 `ApiGWContructProps`의 옵션 프로퍼티입니다. 넘기면
+`ApiRscMethod`가 `GET /temporary` 메서드에 `CognitoUserPoolsAuthorizer`를
+붙이고, 넘기지 않으면 메서드는 열린 상태로 남으며 합성된 템플릿은 기본값과
+바이트 단위로 동일합니다. 활성화하면 호출 측에서 user pool ID 토큰을
+`Authorization` 헤더로 보내야 합니다.
+
+hosted domain prefix는 `CONSTANTS.PROJECT_NAME`에서 파생되며(`cdkdemo-app`),
+Cognito domain prefix는 전역적으로 유일해야 합니다. 배포 시 prefix가 이미
+사용 중이라고 나오면 `config/shared.ts`의 `PROJECT_NAME`을 바꾸면 됩니다.
+
+`cognito-construct.ts` 안의 `CfnIdentityPool` 블록은 주석 상태로 둡니다. 브라우저
+클라이언트가 IAM 역할을 assume해서 AWS API를 직접 호출해야 할 때만 필요하고,
+이 샘플은 그렇게 동작하지 않습니다.
+
+### 람다에 추가 npm 모듈을 번들링하기
+
+`aws-lambda-nodejs`가 바로 이 용도이고, `devteam2-frame`이 이미 사용하고
+있습니다. `devteam2-frame/lib/app-construct/createTable-lambda.ts`를 보세요.
+
+```ts
+const createTableLambda = new nodeLambda.NodejsFunction(this, 'createTableLambda', {
+  entry: path.join(__dirname, '/../../lambda/boards/createTable/index.js'),
+  bundling: {
+    nodeModules: ['mysql2'],
+  },
+});
+```
+
+`nodeModules`는 esbuild가 인라인하지 않고 번들에 설치해야 하는 패키지를
+지정합니다. 먼저 해당 frame의 `package.json`에 의존성을 추가하고 여기에
+나열합니다. 결제 SDK도 방식이 같습니다. `devteam2-frame/package.json`에
+`stripe`를 추가하고 `nodeModules`에 `stripe`를 넣은 뒤 핸들러에서
+`require('stripe')` 하면 됩니다.
+
+함께 알아둘 만한 옵션 두 개가 있습니다.
+
+- `externalModules`는 패키지를 번들에서 아예 제외합니다. Lambda 런타임이 이미
+  제공하는 것에 씁니다. Node 18 이상에서는 AWS SDK v3(`@aws-sdk/*`)이며 v2가
+  아닙니다.
+- `forceDockerBundling: true`는 로컬 `esbuild`가 있어도 Docker 번들링을
+  강제합니다. 네이티브 바인딩이 있는 의존성을 로컬이 아니라 Lambda 플랫폼에
+  맞게 컴파일해야 할 때 유용합니다.
+
+번들링에는 로컬 `esbuild` 또는 실행 중인 Docker 데몬이 필요합니다.
+[Pre Requisite](#Pre-Requisite)의 6번 항목을 참고하세요.
+
+### RDS 비밀번호 교체하기
+
+`devteam2-frame`은 생성된 비밀번호를 담은 `db-credentials` Secrets Manager
+시크릿을 만들고, RDS 인스턴스(`rds.Credentials.fromSecret(...)`)와 RDS
+Proxy(`secrets: [...]`)가 모두 이 시크릿을 읽습니다. 현재 값 확인:
+
+```shell
+$ aws secretsmanager get-secret-value --secret-id db-credentials \
+    --query SecretString --output text
+```
+
+**시크릿 값을 직접 수정하지 마세요.** RDS는 시크릿을 다시 읽지 않으므로 DB
+비밀번호는 그대로인데 시크릿만 달라지고, 그 결과 RDS Proxy가 인스턴스 인증에
+실패합니다.
+
+제대로 교체하려면 Secrets Manager가 양쪽을 함께 바꾸게 해야 합니다.
+`devteam2-frame/lib/rds-construct/rds-construct.ts`에서 `this.dbInstance`
+생성 뒤에 한 줄을 추가하세요.
+
+```ts
+this.dbInstance.addRotationSingleUser({
+  automaticallyAfter: cdk.Duration.days(30),
+  vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+  endpoint: this.secretManagerVpcEndpoint,
+});
+```
+
+VPC 안에 rotation 람다를 프로비저닝하고 일정을 등록하므로, 인스턴스 비밀번호와
+시크릿이 함께 바뀌고 서로 어긋나지 않습니다.
+
+여기서 `endpoint`는 사실상 필수입니다. 이 VPC는 `natGateways: 0`으로 만들어지고
+모든 서브넷이 `PRIVATE_ISOLATED`이므로 rotation 람다에는 퍼블릭 Secrets Manager
+API로 가는 경로가 없습니다. construct가 만드는 인터페이스 엔드포인트를 거쳐야
+하며, 바로 이 용도로 `secretManagerVpcEndpoint`로 노출해 두었습니다. `endpoint`를
+빼면 rotation은 그대로 타임아웃됩니다.
+
+문자 집합 관련 참고: 최초 시크릿은 `excludePunctuation: true`로 생성됩니다.
+rotation은 자체 `excludeCharacters` 기본값을 쓰므로, 비밀번호에 구두점이 없어야
+하는 곳이 있다면 명시적으로 지정하세요.
+
+### 다루지 않은 것: 웹 앱 빌드 파이프라인
+
+issue #10은 `main-frame/website-dist` 뒤의 Vue.js 소스와 빌드 워크플로도
+요청합니다. 이는 이 CDK 샘플의 변경이 아니라 별도의 프론트엔드 프로젝트이고,
+이 리포지토리에는 포함돼 있지 않습니다. `website-dist`는 빌드된 상태로
+제공되며, `WriteWebhostEnvConstruct`가 배포 시점에 API Gateway 엔드포인트를
+버킷에 기록하므로 정적 번들이 재빌드 없이 API를 찾을 수 있습니다.
 
 ### Useful commands - CDK
 

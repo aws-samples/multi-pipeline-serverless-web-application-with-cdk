@@ -4,9 +4,16 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { CONSTANTS } from '../../../config/shared';
 import * as cdk from 'aws-cdk-lib';
+import * as cognito from 'aws-cdk-lib/aws-cognito';
 
 export interface ApiGWContructProps {
     apiGW: apiGateway.RestApi,
+    /**
+     * Optional. Pass a Cognito user pool to put the GET method behind a
+     * COGNITO_USER_POOLS authorizer. Leave it out and the method stays open,
+     * which is the default this sample ships with.
+     */
+    cognitoUserPool?: cognito.IUserPool,
 }
 
 export class ApiRscMethod extends Construct {
@@ -25,10 +32,23 @@ export class ApiRscMethod extends Construct {
 
         // create resource
         this.noticeRsc = props.apiGW.root.addResource('temporary');
+
+        // Only built when a user pool was passed in, so the default path adds
+        // no authorizer and the synthesized template is unchanged.
+        const methodOptions: apiGateway.MethodOptions = props.cognitoUserPool
+            ? {
+                authorizationType: apiGateway.AuthorizationType.COGNITO,
+                authorizer: new apiGateway.CognitoUserPoolsAuthorizer(this, 'CognitoAuthorizer', {
+                    cognitoUserPools: [props.cognitoUserPool],
+                }),
+            }
+            : {};
+
         // add method
         this.noticeRsc.addMethod(
             'GET',
-            new apiGateway.LambdaIntegration(exLambda, {proxy: true})
+            new apiGateway.LambdaIntegration(exLambda, {proxy: true}),
+            methodOptions
         );
         // exLambda.addPermission();
         exLambda.grantInvoke(new ServicePrincipal('apigateway.amazonaws.com'));
